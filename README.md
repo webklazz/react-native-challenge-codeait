@@ -2,11 +2,11 @@
 
 Given the visual reference `reference.jpg`, let's create a small weather app.
 
-`Base URL`: http://api.weatherapi.com/v1
-`API KEY`: 6be8c28794924ed8a2a184922222905
-`Documentation`: https://www.weatherapi.com/docs/
-Assets included on `./assets/` folder
-Information about icons and codes can be found in https://www.weatherapi.com/docs/#weather-icons 
+- `Base URL`: http://api.weatherapi.com/v1
+- `API KEY`: 6be8c28794924ed8a2a184922222905
+- `Documentation`: https://www.weatherapi.com/docs/
+- Assets included on `./assets/` folder
+- Information about icons and codes can be found in https://www.weatherapi.com/docs/#weather-icons 
 
 ## Requeriments
 
