@@ -12,8 +12,8 @@ Given the visual reference `reference.jpg`, let's create a small weather app.
 
 ### Main Screen
 - On first init, the application should ask the user for his ubication in order to provide the main weather information
-- The user should be able to search for locations on top bar, displaying ten results on a simple flat list ***(Definir cantidad. Pedimos paginación?)***
-- On the bottom of the main screen, five nearby cities should be displayed on an carousel fashion ***(Acá tengo dudas, la API creo que no nos da ubicaciones cercanas a la solicitada, quizá podríamos pre-fijar esas cinco, sugerir hacer algún cálculo de coordenadas para obtener las ubicaciones, o no sugerir nada y que el candidato resuelva)***
+- The user should be able to search for locations on top bar, displaying ten results on a simple flat list
+- On the bottom of the main screen, five other cities should be displayed on an carousel fashion
 - Tapping on **Detailed** button, should navigate to the details screen (the one that is on the right) and display the information of the current location
 - Tapping on any card of the bottom carousel, should navigate to the details screen and display the information for that location
 
