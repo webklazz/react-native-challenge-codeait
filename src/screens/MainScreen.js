@@ -1,41 +1,88 @@
-import React, { useState , useEffect} from 'react';
-import {View, Text, TextInput, Image} from 'react-native';
-import weatherApi from '../api/weatherApi';
-import Background from '../components/Background';
-import Search from '../components/Search';
-import WeatherDetails from '../components/WeatherDetails';
-
+import React, {useState, useEffect, useMemo} from 'react';
+import {View, Text, FlatList} from 'react-native';
+import  {Background, Loading, Search, CardOfCities, WeatherDetails} from '../components';
+import {useLocationResponses} from '../hooks/useLocationResponses';
+import { getDate } from '../utils/getDate';
 
 export const MainScreen = () => {
-    const [data, setData] = useState('')
-    const getWeather = async () => {
-       try {
-        const res = await weatherApi.get('&q=London&aqi=no')
-        return setData(res.data)
-       } catch (error) {
-        console.log(error)
-       }
-             }
-  const [date, setDate] = useState('')
-    useEffect(() => {
-        const newDate = new Date().toDateString().slice(0, 10);
-        setDate(newDate)
-        getWeather()
-        console.log(data)
-    }, [])
+  const {
+    isLoading,
+    currentLocationResponse,
+    firstCityResponse,
+    secondCityResponse,
+    thirdCityResponse,
+    fourthCityResponse,
+    fifthCityResponse,
+
+  } = useLocationResponses();
+  /* MEMO */
+  const memoizedCurrentLocationResponse = useMemo(
+    () => currentLocationResponse,
+    [currentLocationResponse],
+  );
+  const memoFirstCity = useMemo(
+    () => firstCityResponse,
+    [firstCityResponse],
+  );
+  const memoSecondCity = useMemo(
+    () => secondCityResponse,
+    [secondCityResponse],
+  );
+  const memoThirdCity = useMemo(
+    () => thirdCityResponse,
+    [thirdCityResponse],
+  );
+  const memoFourthCity = useMemo(
+    () => fourthCityResponse,
+    [fourthCityResponse],
+  );  
+  const memoFifthCity = useMemo(
+    () => fifthCityResponse,
+    [fifthCityResponse],
+  );
+  /* MEMO */
+  const { date } = getDate();
+  const memodate =useMemo(() => date, [date])
+  if (isLoading) {
+    return <Loading />;
+  }
+  const listofCities = [
+    memoFirstCity,
+    memoSecondCity,
+    memoThirdCity,
+    memoFourthCity,
+    memoFifthCity,
+  ].map((city) => city)
   return (
     <Background>
       <View style={{marginTop: 35}}>
         <View>
-            <Text>{date}</Text>
+          <Text style={{color: 'white', marginHorizontal: 20, fontSize: 20}}>
+            {memodate}
+          </Text>
         </View>
         {/* Search */}
-        <Search/>
+        <Search />
         {/* Details */}
-       <WeatherDetails/>
+        <WeatherDetails data={memoizedCurrentLocationResponse} />
         {/* List of cities */}
+        <Text
+          style={{
+            color: 'white',
+            marginHorizontal: 20,
+            marginVertical: 20,
+            fontSize: 20,
+          }}>
+          Other Cities
+        </Text>
         <View>
-          <Text>List</Text>
+         <FlatList
+              data={listofCities}
+              renderItem={city => <CardOfCities data={city} />}
+              horizontal
+              keyExtractor={(item) => item.location.name.toString()} 
+              showsHorizontalScrollIndicator={false}
+            />  
         </View>
       </View>
     </Background>

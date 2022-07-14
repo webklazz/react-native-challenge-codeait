@@ -1,7 +1,7 @@
 import { View, TextInput } from 'react-native'
 import React from 'react'
 
-const Search = () => {
+export const Search = () => {
   return (
     <View style={{marginVertical: 20}}>
     <TextInput
@@ -16,4 +16,3 @@ const Search = () => {
   )
 }
 
-export default Search

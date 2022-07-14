@@ -1,8 +1,10 @@
-import { View, Text, Image } from 'react-native'
 import React from 'react'
+import { View, Text, Image , StyleSheet, TouchableOpacity} from 'react-native'
+import { useNavigation } from '@react-navigation/native';
 
-const WeatherDetails = () => {
-    const uri = 'https://cdn.weatherapi.com/weather/64x64/day/113.png';
+export const WeatherDetails = ({data}) => {
+  const uri = `https:${data.current.condition.icon}`;
+ const navigation = useNavigation()
   return (
     <View>
     <Text
@@ -13,19 +15,34 @@ const WeatherDetails = () => {
         padding: 10,
         marginHorizontal: 20,
       }}>
-      18 °C
+      {data.current.temp_c} º C
     </Text>
-    <View style={{flexDirection: 'row'}}>
-      <Image source={{uri}} style={{width: 200, height: 200}} />
+    <View style={{flexDirection: 'row', alignItems:'center'}}>
+      <Image source={{uri}} style={{width: 240, height: 240}} />
 
       <View>
-        <Text>Wind</Text>
-        <Text>Humidit</Text>
-        <Text>Detailed</Text>
+        <Text style={styles.titleIndicators}>Wind</Text>
+        <Text style={styles.indicators}>{data.current.wind_kph}</Text>
+        <Text style={styles.titleIndicators}>Humidt</Text>
+        <Text style={styles.indicators}>{data.current.humidity}%</Text>
+        <TouchableOpacity   onPress={() => navigation.navigate('Details',{
+          item: data
+        })}>
+        <Text style={styles.titleIndicators}>Detailed</Text>
+        </TouchableOpacity>
       </View>
     </View>
   </View>
   )
 }
 
-export default WeatherDetails
+const styles = StyleSheet.create({
+  titleIndicators:{
+    fontSize: 18,
+    color:'#5cc7df'
+  },
+  indicators:{
+    fontSize: 35  ,
+    color: 'white',
+  }
+})

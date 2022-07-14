@@ -13,14 +13,15 @@ export const useLocation = () => {
     Geolocation.getCurrentPosition(
       info => {
         const {latitude, longitude} = info.coords;
+        console.log(latitude, longitude);
         setCurrentPosition({
           latitude,
           longitude,
         });
         setHasLocation(true);
       },
-      err => console.log(err),
-      {enableHighAccuracy: true},
+      err => console.error('here',err),
+      {enableHighAccuracy: false},
     );
   }, []);
 
